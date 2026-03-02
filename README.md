@@ -17,16 +17,18 @@ Ele fornece monitoramento em tempo real de:
 -   Partições de disco (Windows e Linux)
 -   Containers Docker (status, CPU %, Memória %)
 
+``` pwsh
+cargo run --release -- --title "ByteHomeLab"
+```
 <p align="center">
-  <img src="img/system.png" alt="system" width="200"/>
+  <img src="img/system.png" alt="system" width="600"/>
 </p>
 <p align="center">
-  <img src="img/processes.png" alt="processes" width="200"/>
+  <img src="img/processes.png" alt="processes" width="600"/>
 </p>
 <p align="center">
-  <img src="img/docker.png" alt="docker" width="200"/>
+  <img src="img/docker.png" alt="docker" width="600"/>
 </p>
-------------------------------------------------------------------------
 
 ## ✨ Funcionalidades
 
