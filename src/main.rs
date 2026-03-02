@@ -10,9 +10,12 @@ use clap::Parser;
 struct Args {
     #[arg(long, default_value = "RackTop")]
     title: String,
+
+    #[arg(long)]
+    auto_tab: Option<u64>,
 }
 
 fn main() {
     let args = Args::parse();
-    app::run(args.title);
+    app::run(args.title, args.auto_tab);
 }

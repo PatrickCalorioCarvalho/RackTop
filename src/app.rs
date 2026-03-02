@@ -25,7 +25,25 @@ pub enum Tab {
     Docker,
 }
 
-pub fn run(title: String) {
+impl Tab {
+    fn next(self) -> Self {
+        match self {
+            Tab::System => Tab::Processes,
+            Tab::Processes => Tab::Docker,
+            Tab::Docker => Tab::System,
+        }
+    }
+
+    fn previous(self) -> Self {
+        match self {
+            Tab::System => Tab::Docker,
+            Tab::Processes => Tab::System,
+            Tab::Docker => Tab::Processes,
+        }
+    }
+}
+
+pub fn run(title: String, auto_tab_secs: Option<u64>) {
     enable_raw_mode().unwrap();
     let mut stdout = stdout();
     execute!(stdout, EnterAlternateScreen, Hide).unwrap();
@@ -38,6 +56,9 @@ pub fn run(title: String) {
 
     let mut current_tab = Tab::System;
 
+    let auto_duration = auto_tab_secs.map(Duration::from_secs);
+    let mut last_auto_switch = Instant::now();
+
     loop {
         if event::poll(Duration::from_millis(100)).unwrap() {
             if let Event::Key(key) = event::read().unwrap() {
@@ -45,26 +66,25 @@ pub fn run(title: String) {
                     KeyCode::Char('q') | KeyCode::Esc => break,
 
                     KeyCode::Right => {
-                        current_tab = match current_tab {
-                            Tab::System => Tab::Processes,
-                            Tab::Processes => Tab::Docker,
-                            Tab::Docker => Tab::System,
-                        }
+                        current_tab = current_tab.next();
+                        last_auto_switch = Instant::now();
                     }
 
                     KeyCode::Left => {
-                        current_tab = match current_tab {
-                            Tab::System => Tab::Docker,
-                            Tab::Processes => Tab::System,
-                            Tab::Docker => Tab::Processes,
-                        }
+                        current_tab = current_tab.previous();
+                        last_auto_switch = Instant::now();
                     }
 
                     _ => {}
                 }
             }
         }
-
+        if let Some(duration) = auto_duration {
+            if last_auto_switch.elapsed() >= duration {
+                current_tab = current_tab.next();
+                last_auto_switch = Instant::now();
+            }
+        }
         if last_tick.elapsed() >= tick_rate {
             let metrics = Metrics::collect();
 
