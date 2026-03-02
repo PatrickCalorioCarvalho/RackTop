@@ -1,5 +1,6 @@
 # 🚀 RackTop
 
+
 RackTop é um monitor de sistema moderno em Terminal (TUI) escrito em
 **Rust**, utilizando:
 
@@ -16,6 +17,15 @@ Ele fornece monitoramento em tempo real de:
 -   Partições de disco (Windows e Linux)
 -   Containers Docker (status, CPU %, Memória %)
 
+<p align="center">
+  <img src="img/system.png" alt="system" width="200"/>
+</p>
+<p align="center">
+  <img src="img/processes.png" alt="processes" width="200"/>
+</p>
+<p align="center">
+  <img src="img/docker.png" alt="docker" width="200"/>
+</p>
 ------------------------------------------------------------------------
 
 ## ✨ Funcionalidades

@@ -6,13 +6,23 @@ pub struct DiskInfo {
     pub total: u64,
 }
 
+#[derive(Clone)]
+pub struct ProcessInfo {
+    pub pid: i32,
+    pub name: String,
+    pub cpu: f32,
+    pub memory: u64,
+}
+
 pub struct Metrics {
     pub cpu_usage: f32,
     pub memory_used: u64,
     pub memory_total: u64,
     pub swap_used: u64,
     pub swap_total: u64,
+    pub cpu_count: usize,
     pub disks: Vec<DiskInfo>,
+    pub processes: Vec<ProcessInfo>,
 }
 
 impl Metrics {
@@ -45,6 +55,19 @@ impl Metrics {
             })
             .collect();
 
+        let cpu_count = sys.cpus().len();
+        
+        let processes = sys
+            .processes()
+            .values()
+            .map(|p| ProcessInfo {
+                pid: p.pid().as_u32() as i32,
+                name: p.name().to_string(),
+                cpu: p.cpu_usage(),
+                memory: p.memory(),
+            })
+            .collect();
+
         Self {
             cpu_usage,
             memory_used,
@@ -52,6 +75,8 @@ impl Metrics {
             swap_used,
             swap_total,
             disks,
+            processes,
+            cpu_count,
         }
     }
 }

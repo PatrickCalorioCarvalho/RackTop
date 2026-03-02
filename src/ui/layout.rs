@@ -61,7 +61,7 @@ pub fn draw_layout(
 
     match tab {
         Tab::System => tab_system::draw(f, chunks[1], metrics),
-        Tab::Processes => tab_processes::draw(f, chunks[1]),
+        Tab::Processes => tab_processes::draw(f, chunks[1],metrics),
         Tab::Docker => tab_docker::draw(f, chunks[1]),
     }
 
