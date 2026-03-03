@@ -5,8 +5,19 @@
     <version>0.1.7</version>
     <title>RackTop</title>
     <authors>Patrick Calorio Carvalho</authors>
+    <owners>patrickcaloriocarvalho</owners>
     <projectUrl>https://github.com/PatrickCalorioCarvalho/RackTop</projectUrl>
-    <description>Um monitor de sistema moderno em Terminal</description>
-    <tags>rust monitoring system docker</tags>
+    <projectSourceUrl>https://github.com/PatrickCalorioCarvalho/RackTop</projectSourceUrl>
+    <docsUrl>https://github.com/PatrickCalorioCarvalho/RackTop#readme</docsUrl>
+    <bugTrackerUrl>https://github.com/PatrickCalorioCarvalho/RackTop/issues</bugTrackerUrl>
+    <licenseUrl>https://github.com/PatrickCalorioCarvalho/RackTop/blob/main/LICENSE</licenseUrl>
+    <iconUrl>https://raw.githubusercontent.com/PatrickCalorioCarvalho/RackTop/main/img/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>Terminal-based process monitoring tool written in Rust.</summary>
+    <description>
+      RackTop is a Rust CLI application for process monitoring and visualization.
+    </description>
+    <releaseNotes>https://github.com/PatrickCalorioCarvalho/RackTop/releases</releaseNotes>
+    <tags>rust cli monitoring terminal</tags>
   </metadata>
 </package>
