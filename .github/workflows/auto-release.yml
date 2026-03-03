@@ -123,3 +123,25 @@ jobs:
           files: dist/**/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+    publish-choco:
+    needs: [release]
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Chocolatey
+        uses: crazy-max/ghaction-chocolatey@v3
+
+      - name: Pack Chocolatey
+        run: |
+          choco pack choco/racktop.nuspec
+
+      - name: Push to Chocolatey
+        run: |
+          choco push racktop.${{ needs.versioning.outputs.new_version }}.nupkg `
+            --source https://push.chocolatey.org/ `
+            --api-key $env:CHOCO_API_KEY
+        env:
+          CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
