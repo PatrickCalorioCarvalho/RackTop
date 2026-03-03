@@ -131,9 +131,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Chocolatey
-        uses: crazy-max/ghaction-chocolatey@v3
-
       - name: Pack Chocolatey
         run: |
           choco pack choco/racktop.nuspec
