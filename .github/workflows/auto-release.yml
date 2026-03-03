@@ -125,19 +125,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
   publish-choco:
-    needs: [release,versioning]
+    needs: [release, versioning]
     runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Pack Chocolatey
-        run: |
-          choco pack choco/racktop.nuspec
+        run: choco pack choco/racktop.nuspec
+
+      - name: List files
+        run: dir
 
       - name: Push to Chocolatey
         run: |
-          choco push racktop.${{ needs.versioning.outputs.new_version }}.nupkg `
+          choco push *.nupkg `
             --source https://push.chocolatey.org/ `
             --api-key $env:CHOCO_API_KEY
         env:
