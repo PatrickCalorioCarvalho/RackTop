@@ -46,6 +46,9 @@ jobs:
       - name: Update Snap version
         run: |
           sed -i "s/version: .*/version: '${{ steps.bump.outputs.new_version }}'/" snap/snapcraft.yaml
+          
+      - name: Ensure lockfile updated
+        run: cargo check
 
       - name: Commit version bump
         run: |
