@@ -134,6 +134,27 @@ jobs:
           ref: v${{ needs.versioning.outputs.new_version }}
           fetch-depth: 0
 
+      - name: Set version
+        run: |
+          echo "VERSION=${{ needs.versioning.outputs.new_version }}" >> $env:GITHUB_ENV
+
+      - name: Download release exe
+        run: |
+          Invoke-WebRequest `
+            "https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/RackTop-windows.exe" `
+            -OutFile "RackTop-windows.exe"
+
+      - name: Generate SHA256
+        run: |
+          $hash = (Get-FileHash RackTop-windows.exe -Algorithm SHA256).Hash
+          echo "SHA256=$hash" >> $env:GITHUB_ENV
+
+      - name: Replace checksum in chocolateyinstall.ps1
+        run: |
+          (Get-Content choco/tools/chocolateyinstall.ps1) `
+            -replace '__CHECKSUM__', '${{ env.SHA256 }}' `
+            | Set-Content choco/tools/chocolateyinstall.ps1
+
       - name: Pack Chocolatey
         run: choco pack choco/racktop.nuspec
 
@@ -142,7 +163,7 @@ jobs:
 
       - name: Push to Chocolatey
         run: |
-          choco push racktop.${{ needs.versioning.outputs.new_version }}.nupkg `
+          choco push racktop.${{ env.VERSION }}.nupkg `
             --source https://push.chocolatey.org/ `
             --api-key $env:CHOCO_API_KEY
         env:
