@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>racktop</id>
+    <version>1.0.0</version>
+    <title>RackTop</title>
+    <authors>Patrick Calorio Carvalho</authors>
+    <projectUrl>https://github.com/PatrickCalorioCarvalho/RackTop</projectUrl>
+    <description>Um monitor de sistema moderno em Terminal</description>
+    <tags>rust monitoring system docker</tags>
+  </metadata>
+</package>

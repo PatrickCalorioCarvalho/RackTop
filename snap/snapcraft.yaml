@@ -1,0 +1,21 @@
+name: racktop
+base: core22
+version: '1.0.0'
+summary: Modern Rust System Monitor
+description: |
+  Um monitor de sistema moderno em Terminal
+
+grade: stable
+confinement: strict
+
+apps:
+  racktop:
+    command: racktop
+    plugs:
+      - network
+      - system-observe
+
+parts:
+  racktop:
+    plugin: rust
+    source: .
