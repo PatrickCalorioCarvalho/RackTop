@@ -130,6 +130,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: v${{ needs.versioning.outputs.new_version }}
+          fetch-depth: 0
 
       - name: Pack Chocolatey
         run: choco pack choco/racktop.nuspec
@@ -139,7 +142,7 @@ jobs:
 
       - name: Push to Chocolatey
         run: |
-          choco push *.nupkg `
+          choco push racktop.${{ needs.versioning.outputs.new_version }}.nupkg `
             --source https://push.chocolatey.org/ `
             --api-key $env:CHOCO_API_KEY
         env:
