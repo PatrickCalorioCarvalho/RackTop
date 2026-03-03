@@ -1,6 +1,6 @@
 name: racktop
 base: core22
-version: '0.1.4'
+version: '0.1.5'
 summary: Modern Rust System Monitor
 description: |
   Um monitor de sistema moderno em Terminal
