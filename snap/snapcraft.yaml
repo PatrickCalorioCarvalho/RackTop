@@ -1,6 +1,6 @@
 name: racktop
 base: core22
-version: '0.1.10'
+version: '0.1.11'
 summary: Modern Rust system monitor
 description: |
   RackTop is a modern terminal-based system monitor written in Rust.
