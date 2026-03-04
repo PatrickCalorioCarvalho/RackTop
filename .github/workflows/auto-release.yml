@@ -183,7 +183,7 @@ jobs:
           sudo snap install snapcraft --classic
 
       - name: Build Snap
-        run: snapcraft pack
+        run: snapcraft pack --destructive-mode
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
 
