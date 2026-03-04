@@ -179,6 +179,7 @@ jobs:
           ref: v${{ needs.versioning.outputs.new_version }}
 
       - name: Build Snap
+        id: build
         uses: snapcore/action-build@v1
 
       - name: Upload Snap to Store
