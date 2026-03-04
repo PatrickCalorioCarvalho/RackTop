@@ -178,16 +178,13 @@ jobs:
         with:
           ref: v${{ needs.versioning.outputs.new_version }}
 
-      - name: Install Snapcraft
-        run: |
-          sudo snap install snapcraft --classic
-
       - name: Build Snap
-        run: snapcraft pack --destructive-mode
-        env:
-          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
+        uses: snapcore/action-build@v1
 
-      - name: Upload Snap
-        run: snapcraft upload racktop_${{ needs.versioning.outputs.new_version }}_amd64.snap --release=stable
+      - name: Upload Snap to Store
+        uses: snapcore/action-publish@v1
+        with:
+          snap: ${{ steps.build.outputs.snap }}
+          release: stable
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
