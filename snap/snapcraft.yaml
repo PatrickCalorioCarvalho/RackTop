@@ -1,21 +1,45 @@
 name: racktop
 base: core22
 version: '0.1.10'
-summary: Modern Rust System Monitor
+summary: Modern Rust system monitor
 description: |
-  Um monitor de sistema moderno em Terminal
+  RackTop is a modern terminal-based system monitor written in Rust.
+  It allows inspecting processes and system information in a fast and
+  interactive way.
 
 grade: stable
 confinement: strict
 
+title: RackTop
+website: https://github.com/PatrickCalorioCarvalho/RackTop
+donation: https://github.com/sponsors/PatrickCalorioCarvalho
+contact: calorio86@gmail.com
+license: MIT
+source-code: https://github.com/PatrickCalorioCarvalho/RackTop
+issues: https://github.com/PatrickCalorioCarvalho/RackTop/issues
+
 apps:
   racktop:
-    command: racktop
+    command: bin/racktop
     plugs:
       - network
       - system-observe
+      - process-control
+      - hardware-observe
 
 parts:
   racktop:
-    plugin: rust
+    plugin: nil
     source: .
+    build-packages:
+      - curl
+      - build-essential
+
+    override-build: |
+      curl https://sh.rustup.rs -sSf | sh -s -- -y
+      export PATH="$HOME/.cargo/bin:$PATH"
+      cargo build --release
+
+      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      cp $SNAPCRAFT_PART_BUILD/target/release/RackTop \
+        $SNAPCRAFT_PART_INSTALL/bin/racktop

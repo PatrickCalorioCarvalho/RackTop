@@ -168,3 +168,28 @@ jobs:
             --api-key $env:CHOCO_API_KEY
         env:
           CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
+          
+  publish-snap:
+    needs: [release, versioning]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: v${{ needs.versioning.outputs.new_version }}
+
+      - name: Install Snapcraft
+        run: |
+          sudo snap install snapcraft --classic
+
+      - name: Import Snapcraft credentials
+        run: |
+          echo "${{ secrets.SNAPCRAFT_LOGIN }}" > snapcraft.login
+          snapcraft login --with snapcraft.login
+
+      - name: Build Snap
+        run: snapcraft pack
+
+      - name: Upload Snap
+        run: |
+          snapcraft upload racktop_${{ needs.versioning.outputs.new_version }}_amd64.snap --release=stable
