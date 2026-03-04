@@ -182,14 +182,12 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
 
-      - name: Import Snapcraft credentials
-        run: |
-          echo "${{ secrets.SNAPCRAFT_LOGIN }}" > snapcraft.login
-          snapcraft login --with snapcraft.login
-
       - name: Build Snap
         run: snapcraft pack
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
 
       - name: Upload Snap
-        run: |
-          snapcraft upload racktop_${{ needs.versioning.outputs.new_version }}_amd64.snap --release=stable
+        run: snapcraft upload racktop_${{ needs.versioning.outputs.new_version }}_amd64.snap --release=stable
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
