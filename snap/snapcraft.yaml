@@ -8,7 +8,7 @@ description: |
   interactive way.
 
 grade: stable
-confinement: classic
+confinement: strict
 
 title: RackTop
 website: https://github.com/PatrickCalorioCarvalho/RackTop
