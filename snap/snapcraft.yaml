@@ -26,6 +26,8 @@ apps:
       - system-observe
       - process-control
       - hardware-observe
+      - mount-observe
+      - docker
 
 parts:
   racktop:
