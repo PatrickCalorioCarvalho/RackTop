@@ -24,10 +24,8 @@ apps:
     plugs:
       - network
       - system-observe
-      - process-control
       - hardware-observe
       - mount-observe
-      - docker-support
 
 parts:
   racktop:
