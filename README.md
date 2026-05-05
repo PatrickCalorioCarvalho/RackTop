@@ -148,3 +148,4 @@ Licença MIT
 Desenvolvido com Rust ❤️
 
 Se você gostou do projeto, considere dar uma ⭐ no GitHub!
+
